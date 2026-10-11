@@ -73,7 +73,7 @@ Esc closes the pane. No bare `/scout` command is registered, so your own
 `/scout` skill remains yours.
 
 Nothing is drawn until this session asks an agent via the Scout MCP `ask`
-tool or `scout ask` in Bash. While work is live, one dim line above the prompt
+tool, `scout ask` in Bash, or the generated `/scout:ask` companion wrapper. While work is live, one dim line above the prompt
 shows its targets and ages. A toast announces completion or failure; finished
 asks leave the band after about 90 seconds. The band is trace-only.
 

@@ -6,7 +6,9 @@ export const TERMINAL_STATES = new Set(["completed", "failed", "cancelled"]);
 
 /** Tools whose results carry the invocation ids of asks this session made. */
 export const ASK_TOOL = /^mcp__(?:plugin_[\w-]+_)?scout__ask$/;
-export const SCOUT_ASK_COMMAND = /(?:^|[\s;&|(])scout\s+(?:--json\s+)?ask\b/;
+// The generated /scout:ask command runs the companion through node, rather
+// than spelling "scout ask" in Bash. Watch both entry points.
+export const SCOUT_ASK_COMMAND = /(?:^|[\s;&|(])(?:scout\s+(?:--json\s+)?ask\b|node\s+(?:"[^"\n]*\/scout-companion\.mjs"|'[^'\n]*\/scout-companion\.mjs'|[^\s"';&|]*\/scout-companion\.mjs)\s+ask\b)/;
 
 /** Every invocation id mentioned in a tool result, in order, without repeats. */
 export function invocationIdsIn(result) {

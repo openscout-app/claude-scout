@@ -41,6 +41,9 @@ test("invocation ids come out of MCP and CLI results", () => {
 test("only scout ask commands are watched", () => {
   expect(SCOUT_ASK_COMMAND.test('scout ask --to hudson "look"')).toBe(true);
   expect(SCOUT_ASK_COMMAND.test("cd x && scout --json ask --to a b")).toBe(true);
+  expect(SCOUT_ASK_COMMAND.test('node "${CLAUDE_PLUGIN_ROOT}/scripts/scout-companion.mjs" ask "--project /work look"')).toBe(true);
+  expect(SCOUT_ASK_COMMAND.test("node scripts/scout-companion.mjs ask look")).toBe(true);
+  expect(SCOUT_ASK_COMMAND.test('node "path with spaces/scripts/scout-companion.mjs" who')).toBe(false);
   expect(SCOUT_ASK_COMMAND.test("scout status ref:1")).toBe(false);
   expect(SCOUT_ASK_COMMAND.test("echo askscout ask")).toBe(false);
 });
