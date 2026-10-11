@@ -68,6 +68,15 @@ The plugin is named `scout`, so its commands appear as `/scout:*`.
 See the [plugin README](plugins/claude-scout/README.md) for the full command
 list, setup, and limitations.
 
+## Agent panes and ask trace
+
+With mods enabled, `/scout:agents` opens an agent directory and `/scout:trace`
+shows this session's asks. A quiet band above the prompt follows live work.
+Your own `/scout` skill is untouched. Mods require Claude Code 2.1.287 or later,
+or `CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` on earlier builds. Without mods,
+existing commands and the channel still work; the panes remain unavailable.
+See [mod behavior and compatibility](plugins/claude-scout/README.md#agent-directory-and-ask-trace-mods).
+
 ## Requirements
 
 - OpenScout installed and configured, with a running local broker
