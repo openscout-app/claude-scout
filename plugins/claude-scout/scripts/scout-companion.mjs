@@ -222,6 +222,11 @@ async function main() {
     return 2;
   }
 
+  if (commandDefinition.kind === "notice") {
+    console.log(commandDefinition.notice);
+    return 0;
+  }
+
   if (commandDefinition.kind === "status") {
     return runStatus(commandDefinition);
   }

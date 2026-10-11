@@ -61,8 +61,13 @@ function validateSpec(spec) {
       continue;
     }
 
+    if (command.kind === "notice") {
+      assertString(command.notice, "notice", commandName);
+      continue;
+    }
+
     if (command.kind != null) {
-      throw new Error(`${commandName}.kind must be "status" or omitted`);
+      throw new Error(`${commandName}.kind must be "status", "notice", or omitted`);
     }
     assertStringArray(command.scoutArgs, "scoutArgs", commandName);
   }

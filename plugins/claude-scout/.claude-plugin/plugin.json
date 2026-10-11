@@ -1,7 +1,7 @@
 {
   "name": "scout",
-  "version": "0.1.0",
-  "description": "Scout integration for Claude Code. Adds /scout:* commands and a channel that pushes broker-routed Scout messages into a running Claude session.",
+  "version": "0.2.0",
+  "description": "Scout integration for Claude Code. Adds /scout:* commands, a broker-push channel, and optional agent-directory and ask-trace panes.",
   "author": {
     "name": "OpenScout"
   },

@@ -6,12 +6,13 @@ The repository and plugin directory are named `claude-scout`. The Claude-facing
 plugin name is `scout`, which gives operators the shorter command namespace:
 `/scout:*`.
 
-It provides two surfaces:
+It provides three surfaces:
 
 - slash commands for precise operator actions such as `/scout:ask`,
   `/scout:tell`, `/scout:up`, and `/scout:status`
 - a Claude Code channel for ambient broker-routed push, mentions, group updates,
   and replies
+- an optional mod: a quiet ask-trace band and an agent-directory pane
 
 The channel launches `scout channel`, which:
 
@@ -40,6 +41,7 @@ The plugin currently exposes:
 - `/scout:up` - start or revive a Scout agent
 - `/scout:ps` - show Scout-launched agent process/session state
 - `/scout:open` - open the Scout web UI
+- `/scout:trace` - open this session's ask trace when mods are enabled
 <!-- scout-commands:end -->
 
 The commands are thin wrappers around the Scout CLI. They preserve Scout's
@@ -58,6 +60,54 @@ ask output.
 The command markdown and the list above are generated from
 `commands.scout.json`; update that file and run
 `node scripts/generate-commands.mjs --write`.
+
+## Agent directory and ask trace (mods)
+
+With mods enabled, `/scout:agents` opens the Scout pane on **Agents**:
+search by handle, project, host, or harness; this Mac appears first, then
+remote hosts. Agents active in the last 24 hours appear by default; search
+reaches further back. Selecting a row fills `ask <handle>: ` into the prompt
+and closes the pane—it never sends an ask. The **Live** tab shows this
+session's asks, newest first. `/scout:trace` opens the same pane on Live.
+Esc closes the pane. No bare `/scout` command is registered, so your own
+`/scout` skill remains yours.
+
+Nothing is drawn until this session asks an agent via the Scout MCP `ask`
+tool or `scout ask` in Bash. While work is live, one dim line above the prompt
+shows its targets and ages. A toast announces completion or failure; finished
+asks leave the band after about 90 seconds. The band is trace-only.
+
+The broker is polled every 3 seconds only while an ask is live. The directory
+is fetched only while its tab is open, at most every 30 seconds. Both use
+`OPENSCOUT_BROKER_URL` (default `http://127.0.0.1:43110`). Panes and the band
+require an interactive terminal; hooks also run in print/SDK mode, but those
+surfaces do not draw UI.
+
+**Compatibility:** mods need Claude Code **2.1.287 or later**, or
+`CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1` on an earlier build:
+
+```bash
+CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1 claude --dangerously-load-development-channels plugin:scout@openscout
+```
+
+On 2.1.280 without that flag, the hooks module is inert: existing slash
+commands and the channel still load. `/scout:agents` remains its CLI listing
+fallback, and `/scout:trace` prints a compatibility notice instead of opening
+a pane. The namespaced Markdown commands supply the public command names;
+mods intercept their runs before the CLI fallback. Function-hooks support
+does not grant channel approval; channel loading still needs the flag or
+allowlisting described below.
+
+## Test and validate
+
+From the plugin directory:
+
+```bash
+CLAUDE_CODE_ENABLE_FUNCTION_HOOKS=1 claude plugin test
+claude plugin validate .
+node scripts/generate-commands.mjs --check
+node --test scripts/tests/commands.test.mjs
+```
 
 ## Status
 
@@ -142,11 +192,16 @@ current working directory so Scout can infer the active project sender.
 
 ## Marketplace submission
 
-Anthropic's public submission forms are for its reviewed community marketplace:
+Anthropic's directory submissions are now managed in the
+[developer portal](https://claude.ai/directory/manage), separately from the
+curated `claude-plugins-official` marketplace. See
+[publish a plugin](https://code.claude.com/docs/en/plugins/publish).
 
-- [Claude Console](https://platform.claude.com/plugins/submit) for individual authors.
-- [Claude organization submission](https://claude.ai/admin-settings/directory/submissions/plugins/new) for eligible organizations.
-
-The separately curated official marketplace has no application process. A community listing does not imply official endorsement or channel allowlisting. See [Anthropic's submission documentation](https://code.claude.com/docs/en/plugins#submit-your-plugin-to-the-community-marketplace).
+Earlier Console submissions must be inspected and, where necessary,
+[moved to the developer portal](https://claude.com/docs/directory/publish#move-an-earlier-submission-to-the-developer-portal).
+Do not create a duplicate submission without checking the existing record.
+A listing does not imply official endorsement or channel allowlisting.
+This repository's own marketplace remains `openscout`, with plugin `scout`
+sourced from `plugins/claude-scout`.
 
 Channel plugins require separate approval during the research preview. Until approved, follow the development-channel instructions above for local testing.
