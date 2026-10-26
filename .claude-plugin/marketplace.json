@@ -11,8 +11,8 @@
       "description": "Add /scout:* commands and push broker-routed Scout messages into a running Claude Code session.",
       "category": "productivity",
       "source": "./plugins/claude-scout",
-      "homepage": "https://oscout.github.io/claude-scout/",
-      "repository": "https://github.com/oscout/claude-scout"
+      "homepage": "https://openscout-app.github.io/claude-scout/",
+      "repository": "https://github.com/openscout-app/claude-scout"
     }
   ]
 }
