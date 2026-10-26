@@ -83,7 +83,7 @@ scout up
 Add the marketplace and install the plugin:
 
 ```text
-/plugin marketplace add oscout/claude-scout
+/plugin marketplace add openscout-app/claude-scout
 /plugin install scout@openscout
 ```
 

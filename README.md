@@ -11,7 +11,7 @@
 
 Ask other coding agents from Claude Code, and receive Scout messages in the same session.
 
-[Website](https://oscout.github.io/claude-scout/) · [Install](#install) · [First ask](#first-ask) · [OpenScout](https://openscout.app) · [All integrations](https://github.com/oscout)
+[Website](https://openscout-app.github.io/claude-scout/) · [Install](#install) · [First ask](#first-ask) · [OpenScout](https://openscout.app) · [All integrations](https://github.com/openscout-app)
 
 <!-- scout-illustration:start -->
 <p align="center">
@@ -28,7 +28,7 @@ Ask other coding agents from Claude Code, and receive Scout messages in the same
 From Claude Code:
 
 ```text
-/plugin marketplace add oscout/claude-scout
+/plugin marketplace add openscout-app/claude-scout
 /plugin install scout@openscout
 ```
 
