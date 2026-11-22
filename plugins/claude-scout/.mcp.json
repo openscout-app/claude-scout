@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "scout": {
-      "command": "bash",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/run-scout-channel.sh"]
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/run-scout-channel.mjs"]
     }
   }
 }

@@ -17,7 +17,7 @@ channel that pushes Scout messages into a running session.
 | --- | --- |
 | `.claude-plugin/marketplace.json` | The `openscout` marketplace |
 | `plugins/claude-scout/.claude-plugin/plugin.json` | The `scout` plugin manifest and its channel |
-| `plugins/claude-scout/.mcp.json` | Starts `scripts/run-scout-channel.sh` |
+| `plugins/claude-scout/.mcp.json` | Starts `node scripts/run-scout-channel.mjs` |
 | `plugins/claude-scout/commands.scout.json` | The source for every slash command |
 | `plugins/claude-scout/commands/` | Command files, generated from the source |
 | `plugins/claude-scout/scripts/` | The generator, the command runner, and the channel launcher |
@@ -34,8 +34,10 @@ channel that pushes Scout messages into a running session.
 - The channel launcher tries `scout`, then
   `bunx @openscout/scout@<exact version>`. The plugin directory refuses an
   unpinned launcher, so raise the pin with each core release. It also refuses a
-  command whose path comes from a variable other than `${CLAUDE_PLUGIN_ROOT}`,
-  so the launcher takes no binary override. When none works,
+  shell command whose path it can't follow, such as a program found on `PATH`
+  or a variable other than `${CLAUDE_PLUGIN_ROOT}`. So the launcher is a Node
+  script that `.mcp.json` runs with `node`, which the directory holds for a
+  reviewer instead. Do not move it back to a shell script. When none works,
   the launcher must print the setup commands.
 - Scout is for high-trust local developer use. Do not claim enterprise,
   compliance, or multi-tenant readiness.

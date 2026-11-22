@@ -130,7 +130,7 @@ The wrapper prefers a locally installed `scout` CLI. Set these environment varia
 For the channel process, the launcher sets `OPENSCOUT_SETUP_CWD` from
 `CLAUDE_PROJECT_DIR` in its environment, so Scout infers the active project
 sender instead of the plugin cache directory. If that variable is not set, the
-launcher falls back to `$PWD`, then `$HOME`. Slash commands keep Claude Code's
+launcher falls back to its working folder, then your home folder. Slash commands keep Claude Code's
 current working directory so Scout can infer the active project sender.
 
 ## Current Limits
@@ -144,7 +144,7 @@ current working directory so Scout can infer the active project sender.
 The plugin carries no runtime code of its own. It runs the Scout CLI on your
 machine and talks only to the Scout runtime on your machine.
 
-- **The channel.** Claude Code starts `scripts/run-scout-channel.sh`, which runs
+- **The channel.** Claude Code starts `node scripts/run-scout-channel.mjs`, which runs
   `scout channel`. That process connects to the local Scout runtime, passes
   Scout messages into the session, and sends your replies back to the runtime.
 - **The slash commands.** Each `/scout:*` command runs
