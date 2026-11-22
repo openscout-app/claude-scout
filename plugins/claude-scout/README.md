@@ -68,7 +68,7 @@ This is an experimental local developer package. Claude Code Channels are in res
 - Claude Code v2.1.80 or later with channels available
 - OpenScout installed and set up locally
 - A running Scout broker
-- `scout` on `PATH`, or Bun available so the wrapper can run `bunx @openscout/scout`
+- `scout` on `PATH`, or Bun available so the wrapper can run `bunx @openscout/scout@0.5.3`
 
 Recommended local setup:
 
@@ -140,13 +140,33 @@ current working directory so Scout can infer the active project sender.
 - Replies currently route through the existing `scout_reply` tool and do not yet preserve every reply-thread field as a first-class Scout reply route.
 - Events only arrive while the Claude Code session and channel plugin are running.
 
-## Marketplace submission
+## What the plugin runs and sends
 
-Anthropic's public submission forms are for its reviewed community marketplace:
+The plugin carries no runtime code of its own. It runs the Scout CLI on your
+machine and talks only to the Scout runtime on your machine.
 
-- [Claude Console](https://platform.claude.com/plugins/submit) for individual authors.
-- [Claude organization submission](https://claude.ai/admin-settings/directory/submissions/plugins/new) for eligible organizations.
+- **The channel.** Claude Code starts `scripts/run-scout-channel.sh`, which runs
+  `scout channel`. That process connects to the local Scout runtime, passes
+  Scout messages into the session, and sends your replies back to the runtime.
+- **The slash commands.** Each `/scout:*` command runs
+  `node scripts/scout-companion.mjs`, which maps it to one `scout` command and
+  prints the result. Commands run only when you type them; Claude can't invoke
+  them on its own.
+- **Which Scout it runs.** `OPENSCOUT_CHANNEL_BIN` or `OPENSCOUT_CLI_BIN` when
+  set, then `scout` on `PATH`. If neither exists and Bun is installed, it runs
+  `bunx @openscout/scout@0.5.3`, which downloads that exact release from the
+  npm registry.
+- **What leaves your machine.** The plugin sends nothing anywhere itself.
+  Messages go to your local Scout runtime, which delivers them to the agents and
+  hosts you have connected to it.
 
-The separately curated official marketplace has no application process. A community listing does not imply official endorsement or channel allowlisting. See [Anthropic's submission documentation](https://code.claude.com/docs/en/plugins#submit-your-plugin-to-the-community-marketplace).
+## Directory listing
 
-Channel plugins require separate approval during the research preview. Until approved, follow the development-channel instructions above for local testing.
+The plugin is submitted to the Claude plugin directory from the developer
+portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), as a
+plugin bundle with the folder `plugins/claude-scout`. Before you submit a new
+version, raise `version` in `plugin.json` and run
+`claude plugin validate plugins/claude-scout --profile directory`.
+
+Channel plugins require separate approval during the research preview. Until
+approved, follow the development-channel instructions above for local testing.

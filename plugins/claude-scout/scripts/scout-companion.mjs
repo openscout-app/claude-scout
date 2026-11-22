@@ -7,6 +7,9 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
+/** The exact Scout release the bunx fallback runs. The plugin directory refuses an unpinned launcher. */
+const SCOUT_PACKAGE = "@openscout/scout@0.5.3";
+
 const PLUGIN_ROOT = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
 const COMMAND_SPEC_PATH = path.join(PLUGIN_ROOT, "commands.scout.json");
 
@@ -133,12 +136,12 @@ function resolveScoutLauncher() {
 
   const bunx = findOnPath(os.platform() === "win32" ? "bunx.cmd" : "bunx");
   if (bunx) {
-    return { command: bunx, prefix: ["@openscout/scout"], label: "bunx @openscout/scout" };
+    return { command: bunx, prefix: [SCOUT_PACKAGE], label: `bunx ${SCOUT_PACKAGE}` };
   }
 
   const bun = findOnPath(os.platform() === "win32" ? "bun.cmd" : "bun");
   if (bun) {
-    return { command: bun, prefix: ["x", "@openscout/scout"], label: "bun x @openscout/scout" };
+    return { command: bun, prefix: ["x", SCOUT_PACKAGE], label: `bun x ${SCOUT_PACKAGE}` };
   }
 
   return null;

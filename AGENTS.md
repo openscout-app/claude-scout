@@ -32,7 +32,9 @@ channel that pushes Scout messages into a running session.
   arguments. A command must use a `scout` subcommand that the published
   `@openscout/scout` has.
 - The channel launcher tries `OPENSCOUT_CHANNEL_BIN`, then `scout`, then
-  `bunx @openscout/scout`. When none works, it must print the setup commands.
+  `bunx @openscout/scout@<exact version>`. The plugin directory refuses an
+  unpinned launcher, so raise the pin with each core release. When none works,
+  the launcher must print the setup commands.
 - Scout is for high-trust local developer use. Do not claim enterprise,
   compliance, or multi-tenant readiness.
 - This repository is public. Do not commit local paths, host names,
