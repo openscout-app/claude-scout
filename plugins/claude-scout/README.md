@@ -128,10 +128,10 @@ The wrapper prefers a locally installed `scout` CLI. Set these environment varia
 - `OPENSCOUT_SETUP_CWD`: default Scout context root for agent identity resolution
 - `OPENSCOUT_BROKER_URL`: explicit broker URL when the default broker URL is not correct
 
-For the channel process, the plugin passes Claude Code's project directory as
-`OPENSCOUT_SETUP_CWD`, so Scout infers the active project sender instead of the
-plugin cache directory. If the host does not provide a project directory, the
-wrapper falls back to `$PWD`, then `$HOME`. Slash commands keep Claude Code's
+For the channel process, the launcher sets `OPENSCOUT_SETUP_CWD` from
+`CLAUDE_PROJECT_DIR` in its environment, so Scout infers the active project
+sender instead of the plugin cache directory. If that variable is not set, the
+launcher falls back to `$PWD`, then `$HOME`. Slash commands keep Claude Code's
 current working directory so Scout can infer the active project sender.
 
 ## Current Limits
