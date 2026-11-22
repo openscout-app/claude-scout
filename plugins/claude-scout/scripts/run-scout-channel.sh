@@ -9,10 +9,6 @@ elif [[ -z "${OPENSCOUT_SETUP_CWD:-}" && -n "${HOME:-}" ]]; then
   export OPENSCOUT_SETUP_CWD="${HOME}"
 fi
 
-if [[ -n "${OPENSCOUT_CHANNEL_BIN:-}" ]]; then
-  exec "${OPENSCOUT_CHANNEL_BIN}" channel "$@"
-fi
-
 if command -v scout >/dev/null 2>&1; then
   exec scout channel "$@"
 fi
