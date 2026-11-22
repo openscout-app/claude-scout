@@ -92,7 +92,7 @@ by GitHub Pages from the `docs/` folder on `main`.
 ## Validate
 
 ```bash
-node plugins/claude-scout/scripts/generate-commands.mjs --check
+node scripts/generate-commands.mjs --check
 claude plugin validate .
 claude plugin validate plugins/claude-scout
 ```

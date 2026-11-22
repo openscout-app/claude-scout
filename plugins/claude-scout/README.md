@@ -6,16 +6,20 @@ The repository and plugin directory are named `claude-scout`. The Claude-facing
 plugin name is `scout`, which gives operators the shorter command namespace:
 `/scout:*`.
 
+It works in Claude Code, on a host where Scout is installed. It does nothing
+in Claude chat on the web or in Cowork, because both parts run the Scout CLI
+on your computer.
+
 It provides two surfaces:
 
 - slash commands for precise operator actions such as `/scout:ask`,
   `/scout:tell`, `/scout:up`, and `/scout:status`
-- a Claude Code channel for ambient broker-routed push, mentions, group updates,
+- a Claude Code channel for ambient runtime-routed push, mentions, group updates,
   and replies
 
 The channel launches `scout channel`, which:
 
-- subscribes to the local Scout broker event stream
+- subscribes to the local Scout runtime's event stream
 - pushes incoming Scout messages into the running Claude Code session with `notifications/claude/channel`
 - exposes `scout_reply` for replies to incoming Scout messages
 - exposes `scout_send` for new Scout messages from the Claude session
@@ -26,12 +30,12 @@ The plugin currently exposes:
 
 <!-- scout-commands:start -->
 - `/scout:setup` - run `scout setup`
-- `/scout:doctor` - check broker, service, and support paths
+- `/scout:doctor` - check runtime, service, and support paths
 - `/scout:status` - show doctor, sender, agents, and recent activity
 - `/scout:whoami` - show the current Scout sender
 - `/scout:who` - list routable agents
 - `/scout:agents` - list available agents and their routable handles
-- `/scout:latest` - show recent broker activity
+- `/scout:latest` - show recent runtime activity
 - `/scout:inbox` - show recent messages addressed to you
 - `/scout:channel` - show recent messages in a named channel
 - `/scout:tell` - tell an agent or channel an FYI, status, or result; use /scout:ask for work or a reply
@@ -46,7 +50,7 @@ The commands are thin wrappers around the Scout CLI. They preserve Scout's
 structured routing model: use `--to` for DMs, `--channel` for group threads,
 `--project` plus optional `--harness` for fresh project/capability routing,
 `--ref` for returned continuity handles, and `broadcast` only for shared FYIs.
-`/scout:ask` creates owned work and returns a durable broker receipt with flight
+`/scout:ask` creates owned work and returns a durable runtime receipt with flight
 info. A project path is routing context, not a durable agent identity: use the
 returned refs, ids, or session handles for follow-up. The target acknowledgement
 should appear quickly in the same Scout conversation; completion or the final
@@ -57,7 +61,7 @@ ask output.
 
 The command markdown and the list above are generated from
 `commands.scout.json`; update that file and run
-`node scripts/generate-commands.mjs --write`.
+`node scripts/generate-commands.mjs --write` from the repository root.
 
 ## Status
 
@@ -67,7 +71,7 @@ This is an experimental local developer package. Claude Code Channels are in res
 
 - Claude Code v2.1.80 or later with channels available
 - OpenScout installed and set up locally
-- A running Scout broker
+- A running Scout runtime
 - `scout` on `PATH`, or Bun available so the wrapper can run `bunx @openscout/scout@0.5.3`
 
 Recommended local setup:
@@ -125,7 +129,7 @@ The wrapper prefers a locally installed `scout` CLI. Set these environment varia
 
 - `OPENSCOUT_CLI_BIN`: absolute path to a Scout executable for slash commands
 - `OPENSCOUT_SETUP_CWD`: default Scout context root for agent identity resolution
-- `OPENSCOUT_BROKER_URL`: explicit broker URL when the default broker URL is not correct
+- `OPENSCOUT_BROKER_URL`: the Scout runtime's URL, when the default is not correct
 
 For the channel process, the launcher sets `OPENSCOUT_SETUP_CWD` from
 `CLAUDE_PROJECT_DIR` in its environment, so Scout infers the active project
@@ -141,8 +145,8 @@ current working directory so Scout can infer the active project sender.
 
 ## What the plugin runs and sends
 
-The plugin carries no runtime code of its own. It runs the Scout CLI on your
-machine and talks only to the Scout runtime on your machine.
+The plugin's own code is two small Node scripts that start the Scout CLI. All
+of Scout's work happens in that CLI and in the Scout runtime on your machine.
 
 - **The channel.** Claude Code starts `node scripts/run-scout-channel.mjs`, which runs
   `scout channel`. That process connects to the local Scout runtime, passes
@@ -155,9 +159,20 @@ machine and talks only to the Scout runtime on your machine.
   run `OPENSCOUT_CLI_BIN` when set, then `scout` on `PATH`. If neither exists and Bun is installed, it runs
   `bunx @openscout/scout@0.5.3`, which downloads that exact release from the
   npm registry.
+- **What Claude can do on its own.** The channel gives Claude two tools:
+  `scout_reply` answers a Scout message that reached the session, and
+  `scout_send` sends a new Scout message. Claude Code asks before it uses them,
+  unless you allow them in your permission settings.
+- **What some commands start.** `/scout:setup` configures project discovery
+  and installs and starts the Scout runtime as a background service.
+  `/scout:up` starts an agent session (Claude Code or another harness) for a
+  project. `/scout:ask` can hand work to an agent on this host or on another
+  host connected to your Scout runtime. `/scout:open` opens Scout's local web
+  page in your browser.
 - **What leaves your machine.** The plugin sends nothing anywhere itself.
   Messages go to your local Scout runtime, which delivers them to the agents and
-  hosts you have connected to it.
+  hosts you have connected to it. The plugin collects no analytics and reads no
+  credentials.
 
 ## Directory listing
 
