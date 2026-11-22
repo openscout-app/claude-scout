@@ -14,10 +14,10 @@
     },
     {
       "name": "doctor",
-      "description": "Run Scout operational checks for the local broker, service, and support paths",
+      "description": "Run Scout operational checks for the local runtime, service, and support paths",
       "argumentHint": "[scout doctor args]",
       "usageSuffix": "[scout doctor args]",
-      "readmeSummary": "check broker, service, and support paths",
+      "readmeSummary": "check runtime, service, and support paths",
       "scoutArgs": ["doctor"],
       "postInstructions": [
         "Present the command output as-is. Preserve any error details and follow-up commands exactly."
@@ -75,10 +75,10 @@
     },
     {
       "name": "latest",
-      "description": "Show recent Scout messages, flights, and broker activity",
+      "description": "Show recent Scout messages, flights, and runtime activity",
       "argumentHint": "[scout latest args]",
       "usageSuffix": "[scout latest args]",
-      "readmeSummary": "show recent broker activity",
+      "readmeSummary": "show recent runtime activity",
       "scoutArgs": ["latest"],
       "postInstructions": [
         "Present the command output as-is. Preserve ids and refs exactly."
@@ -125,7 +125,7 @@
       "readmeSummary": "ask an agent to own work and return durable flight info",
       "scoutArgs": ["ask"],
       "postInstructions": [
-        "Present the command output as-is. Treat it as a durable broker receipt and flight record, not as a promise that the final answer has already arrived.",
+        "Present the command output as-is. Treat it as a durable runtime receipt and flight record, not as a promise that the final answer has already arrived.",
         "For fresh capability work, prefer `--project <path>` with optional `--harness <claude|codex>` over guessing a generic agent label. Use `--to` for a known target and `--ref` for returned continuity handles.",
         "Preserve flight ids, refs, target labels, and acknowledgement or completion messages exactly.",
         "Expect the target acknowledgement to appear quickly in the same Scout conversation. Expect completion or the final answer later in the same conversation, via notifications, or by polling/waiting according to the selected reply mode."
@@ -166,7 +166,7 @@
     },
     {
       "name": "open",
-      "description": "Open the Scout web UI for the current local broker",
+      "description": "Open the Scout web UI for the current local runtime",
       "argumentHint": "[scout server open args]",
       "usageSuffix": "[scout server open args]",
       "readmeSummary": "open the Scout web UI",

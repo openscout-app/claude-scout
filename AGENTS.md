@@ -20,13 +20,16 @@ channel that pushes Scout messages into a running session.
 | `plugins/claude-scout/.mcp.json` | Starts `node scripts/run-scout-channel.mjs` |
 | `plugins/claude-scout/commands.scout.json` | The source for every slash command |
 | `plugins/claude-scout/commands/` | Command files, generated from the source |
-| `plugins/claude-scout/scripts/` | The generator, the command runner, and the channel launcher |
+| `plugins/claude-scout/scripts/` | The command runner and the channel launcher, the only code users install |
+| `scripts/generate-commands.mjs` | The command generator. It stays outside the plugin folder, so the directory doesn't review a dev tool |
 | `docs/index.html` | The GitHub Pages site |
 
 ## Rules
 
+- Each command pre-approves only its own call, `Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/scout-companion.mjs" <name>:*)`. The directory holds a broad entry such as `Bash(node:*)` for a reviewer.
+
 - To add or change a command, edit `commands.scout.json` and run
-  `node plugins/claude-scout/scripts/generate-commands.mjs --write`. Do not
+  `node scripts/generate-commands.mjs --write`. Do not
   edit `commands/*.md` or the command list in the plugin README by hand.
 - Each command runs `scripts/scout-companion.mjs`, which maps it to `scout`
   arguments. A command must use a `scout` subcommand that the published
@@ -46,7 +49,7 @@ channel that pushes Scout messages into a running session.
 
 ## Checks
 
-- `node plugins/claude-scout/scripts/generate-commands.mjs --check`
+- `node scripts/generate-commands.mjs --check`
 - `claude plugin validate .`
 
 ## Commits and pull requests
