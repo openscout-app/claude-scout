@@ -2,10 +2,7 @@
   "mcpServers": {
     "scout": {
       "command": "bash",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/run-scout-channel.sh"],
-      "env": {
-        "OPENSCOUT_SETUP_CWD": "${CLAUDE_PROJECT_DIR}"
-      }
+      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/run-scout-channel.sh"]
     }
   }
 }
