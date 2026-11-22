@@ -18,11 +18,11 @@ if command -v scout >/dev/null 2>&1; then
 fi
 
 if command -v bunx >/dev/null 2>&1; then
-  exec bunx @openscout/scout channel "$@"
+  exec bunx @openscout/scout@0.5.3 channel "$@"
 fi
 
 if command -v bun >/dev/null 2>&1; then
-  exec bun x @openscout/scout channel "$@"
+  exec bun x @openscout/scout@0.5.3 channel "$@"
 fi
 
 cat >&2 <<'EOF'

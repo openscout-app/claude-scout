@@ -1,12 +1,14 @@
 {
   "name": "scout",
-  "version": "0.1.0",
-  "description": "Scout integration for Claude Code. Adds /scout:* commands and a channel that pushes broker-routed Scout messages into a running Claude session.",
+  "version": "0.1.1",
+  "description": "Scout integration for Claude Code. Adds /scout:* commands and a channel that pushes Scout messages from the local runtime into a running Claude session.",
   "author": {
     "name": "OpenScout"
   },
   "homepage": "https://openscout-app.github.io/claude-scout/",
   "repository": "https://github.com/openscout-app/claude-scout",
+  "license": "Apache-2.0",
+  "icon": "./.claude-plugin/icon.png",
   "keywords": [
     "openscout",
     "scout",
