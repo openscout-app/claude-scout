@@ -6,9 +6,9 @@ The repository and plugin directory are named `claude-scout`. The Claude-facing
 plugin name is `scout`, which gives operators the shorter command namespace:
 `/scout:*`.
 
-It works in Claude Code, on a host where Scout is installed. It does nothing
-in Claude chat on the web or in Cowork, because both parts run the Scout CLI
-on your computer.
+It runs in Claude Code and Cowork, on a computer where Scout is installed. It
+does nothing in Claude chat on the web, because both parts run the Scout CLI on
+your computer.
 
 It provides two surfaces:
 
