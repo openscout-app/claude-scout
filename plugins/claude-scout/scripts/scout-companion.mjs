@@ -124,7 +124,7 @@ function findOnPath(binary) {
 }
 
 function resolveScoutLauncher() {
-  const explicit = process.env.OPENSCOUT_CLI_BIN || process.env.OPENSCOUT_CHANNEL_BIN;
+  const explicit = process.env.OPENSCOUT_CLI_BIN;
   if (explicit) {
     return { command: explicit, prefix: [], label: explicit };
   }

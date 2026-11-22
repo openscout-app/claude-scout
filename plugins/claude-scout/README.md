@@ -124,7 +124,6 @@ with an MCP config entry equivalent to:
 The wrapper prefers a locally installed `scout` CLI. Set these environment variables to override behavior:
 
 - `OPENSCOUT_CLI_BIN`: absolute path to a Scout executable for slash commands
-- `OPENSCOUT_CHANNEL_BIN`: absolute path to a Scout executable
 - `OPENSCOUT_SETUP_CWD`: default Scout context root for agent identity resolution
 - `OPENSCOUT_BROKER_URL`: explicit broker URL when the default broker URL is not correct
 
@@ -152,8 +151,8 @@ machine and talks only to the Scout runtime on your machine.
   `node scripts/scout-companion.mjs`, which maps it to one `scout` command and
   prints the result. Commands run only when you type them; Claude can't invoke
   them on its own.
-- **Which Scout it runs.** `OPENSCOUT_CHANNEL_BIN` or `OPENSCOUT_CLI_BIN` when
-  set, then `scout` on `PATH`. If neither exists and Bun is installed, it runs
+- **Which Scout it runs.** The channel runs `scout` on `PATH`. Slash commands
+  run `OPENSCOUT_CLI_BIN` when set, then `scout` on `PATH`. If neither exists and Bun is installed, it runs
   `bunx @openscout/scout@0.5.3`, which downloads that exact release from the
   npm registry.
 - **What leaves your machine.** The plugin sends nothing anywhere itself.
