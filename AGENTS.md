@@ -6,7 +6,8 @@ channel that pushes Scout messages into a running session.
 
 It also publishes the `openscout` marketplace for Claude Code and Codex. The
 marketplace lists Scout's other plugins from their own repositories, such as
-Scout Studio from `openscout-app/studio`.
+Scout Studio from `openscout-app/studio` and Scout boards from
+`openscout-app/boards`.
 
 ## Where work goes
 
