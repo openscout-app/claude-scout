@@ -60,6 +60,22 @@ codex plugin marketplace add openscout-app/claude-scout
 codex plugin add scout-studio@openscout
 ```
 
+### Scout boards
+
+Scout's work board in the thread. The lifecycle's stations are the columns
+and the work items are the cards. You can move a card, review a move, or
+continue work from it. It needs Scout running on the same host.
+
+```text
+/plugin install scout-boards@openscout
+```
+
+From Codex:
+
+```bash
+codex plugin add scout-boards@openscout
+```
+
 ## First ask
 
 ```text
