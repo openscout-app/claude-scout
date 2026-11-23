@@ -45,6 +45,21 @@ To work from a local checkout instead, add it as the marketplace:
 /plugin install scout@openscout
 ```
 
+### Scout Studio
+
+The same marketplace has Scout Studio. It shows the screenshots a session took, and lets the agent point you at one spot on a screen. In apps that draw MCP Apps, such as T3 Code, the screens and the marked spot show in the thread.
+
+```text
+/plugin install scout-studio@openscout
+```
+
+From Codex:
+
+```bash
+codex plugin marketplace add openscout-app/claude-scout
+codex plugin add scout-studio@openscout
+```
+
 ## First ask
 
 ```text
