@@ -4,6 +4,10 @@ This repository is the Claude Code plugin for Scout. It is public. The plugin
 is named `scout`. It adds the `/scout:*` slash commands and a Claude Code
 channel that pushes Scout messages into a running session.
 
+It also publishes the `openscout` marketplace for Claude Code and Codex. The
+marketplace lists Scout's other plugins from their own repositories, such as
+Scout Studio from `openscout-app/studio`.
+
 ## Where work goes
 
 - The plugin calls the `scout` CLI and runs `scout channel` as its MCP server.
@@ -15,7 +19,8 @@ channel that pushes Scout messages into a running session.
 
 | Path | Holds |
 | --- | --- |
-| `.claude-plugin/marketplace.json` | The `openscout` marketplace |
+| `.claude-plugin/marketplace.json` | The `openscout` marketplace for Claude Code |
+| `.agents/plugins/marketplace.json` | The `openscout` marketplace for Codex |
 | `plugins/claude-scout/.claude-plugin/plugin.json` | The `scout` plugin manifest and its channel |
 | `plugins/claude-scout/.mcp.json` | Starts `node scripts/run-scout-channel.mjs` |
 | `plugins/claude-scout/commands.scout.json` | The source for every slash command |
@@ -46,6 +51,9 @@ channel that pushes Scout messages into a running session.
   compliance, or multi-tenant readiness.
 - This repository is public. Do not commit local paths, host names,
   credentials, or private source.
+- A plugin from another repository is a `git-subdir` entry in both marketplace
+  files, with the repository, its plugin folder, and a ref. List only plugins
+  from public repositories.
 
 ## Checks
 

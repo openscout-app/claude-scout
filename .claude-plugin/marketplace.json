@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "openscout",
-  "description": "OpenScout Claude Code plugins for local agent coordination.",
+  "description": "OpenScout plugins: Scout for Claude Code, and Scout Studio in the thread.",
   "owner": {
     "name": "OpenScout"
   },
@@ -13,6 +13,19 @@
       "source": "./plugins/claude-scout",
       "homepage": "https://openscout-app.github.io/claude-scout/",
       "repository": "https://github.com/openscout-app/claude-scout"
+    },
+    {
+      "name": "scout-studio",
+      "description": "Show the screenshots this session took, and point the person at one spot on a screen. In apps that draw MCP Apps, the screens and the marked spot show in the thread.",
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "openscout-app/studio",
+        "path": "plugin",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/openscout-app/studio",
+      "repository": "https://github.com/openscout-app/studio"
     }
   ]
 }
